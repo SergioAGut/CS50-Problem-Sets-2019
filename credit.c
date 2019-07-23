@@ -11,10 +11,11 @@
  ** 
  ** 
  **/
-
 #include <cs50.h>
 #include <stdio.h>
 #include <math.h>
+
+void company_check(long long n);
 
 int main(void)
 {
@@ -53,4 +54,36 @@ int main(void)
     {
         printf("Great! It is working\n");
     }
+    company_check(n);
+}
+
+void company_check(long long n)
+    //Calculates length and selects first two digits to know which company issued the card
+{
+    int length = 0;
+    long long t = n;
+    //Calculate length by dividing by ten until t is zero
+    for (int i = 0; t > 0; i++ )
+    {
+        t /= 10;
+        length ++;
+    }
+    printf("The length of card is %i\n", length);
+    
+    // select and check the first two digits of the card number
+    int two_digits = n / pow(10, length - 2);
+    //checks two_digits with the known types
+    if ((length == 15) &&((two_digits == 34) || (two_digits == 37)))
+    {
+        printf("AMERICAN EXPRESS\n");
+    }
+    else if(((length == 13) || (length == 16)) && ((two_digits >= 40) && (two_digits < 50)))
+    {
+        printf("VISA\n");
+    }
+    else if ((length == 16) && ((two_digits >= 51) && (two_digits < 56)))
+    {
+        printf("MASTERCARD\n");
+    }
+               
 }
